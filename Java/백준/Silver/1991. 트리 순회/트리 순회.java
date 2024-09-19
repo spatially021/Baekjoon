@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    private static HashMap<Character, Node> nodes = new HashMap<>();
+    private static Node[] nodes=new Node[26];
     private static StringBuilder sb;
 
     public static void main(String[] args) throws IOException {
@@ -16,11 +16,11 @@ public class Main {
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine(), " ");
 
-            char c = st.nextToken().toCharArray()[0];
+            char c = st.nextToken().charAt(0);
             Node node = new Node(c);
-            node.addLeft(st.nextToken().toCharArray()[0]);
-            node.addRight(st.nextToken().toCharArray()[0]);
-            nodes.put(c, node);
+            node.addLeft(st.nextToken().charAt(0));
+            node.addRight(st.nextToken().charAt(0));
+            nodes[c-'A']=node;
         }
 
         front('A');
@@ -36,7 +36,7 @@ public class Main {
 
     private static void front(char c){
 
-        Node node=nodes.get(c);
+        Node node=nodes[c-'A'];
         sb.append(node.getValue());
         if(node.getLeft()!='.') front(node.getLeft());
         if(node.getRight()!='.') front(node.getRight());
@@ -45,7 +45,7 @@ public class Main {
 
     private static void middle(char c){
 
-        Node node=nodes.get(c);
+        Node node=nodes[c-'A'];
         if(node.getLeft()!='.') middle(node.getLeft());
         sb.append(node.getValue());
         if(node.getRight()!='.') middle(node.getRight());
@@ -54,7 +54,7 @@ public class Main {
 
     private static void back(char c){
 
-        Node node=nodes.get(c);
+        Node node=nodes[c-'A'];
         if(node.getLeft()!='.') back(node.getLeft());
         if(node.getRight()!='.') back(node.getRight());
         sb.append(node.getValue());
