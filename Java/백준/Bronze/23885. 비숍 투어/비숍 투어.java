@@ -27,56 +27,66 @@ public class Main {
         if (end[0] > n || end[1] > m) {
             bw.write("NO");
             bw.flush();
-
         } else if (end[0] < 1 || end[1] < 1) {
             bw.write("NO");
             bw.flush();
-
         } else {
-            boolean flag = false;
-            for (int i = start[0]; i <= n; i += 2) {
-                if (i == end[0]) {
-                    flag = true;
-                    break;
-                }
-            }
 
-            for (int i = start[0]; i > 0; i -= 2) {
-                if (i == end[0]) {
-                    flag = true;
-                    break;
+            if ((end[1] - start[1]) % 2 == 0) {
+                boolean flag = false;
+                for (int i = start[0]; i <= n; i += 2) {
+                    if (i == end[0]) {
+                        flag = true;
+                        break;
+                    }
                 }
-            }
-            bw.flush();
 
-            if (!flag) {
-                bw.write("NO");
+                for (int i = start[0]; i > 0; i -= 2) {
+                    if (i == end[0]) {
+                        flag = true;
+                        break;
+                    }
+                }
+
                 bw.flush();
 
-                return;
-            }
-
-            for (int i = start[1]; i <= m; i += 2) {
-                if (i == end[1]) {
-                    bw.write("YES");
+                if (!flag) {
+                    bw.write("NO");
                     bw.flush();
 
                     return;
                 }
-            }
 
-            for (int i = start[1]; i > 0; i -= 2) {
-                if (i == end[1]) {
-                    bw.write("YES");
+                bw.write("YES");
+                bw.flush();
+
+            } else {
+                boolean flag = false;
+                for (int i = start[0] + 1; i <= n; i += 2) {
+                    if (i == end[0]) {
+                        flag = true;
+                        break;
+                    }
+                }
+
+                for (int i = start[0] + 1; i > 0; i -= 2) {
+                    if (i == end[0]) {
+                        flag = true;
+                        break;
+                    }
+                }
+                bw.flush();
+
+                if (!flag) {
+                    bw.write("NO");
                     bw.flush();
 
                     return;
                 }
+                bw.write("YES");
+                bw.flush();
+
             }
-
-            bw.write("NO");
-            bw.flush();
-
 
         }
     }
